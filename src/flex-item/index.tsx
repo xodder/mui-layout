@@ -1,18 +1,20 @@
 import { Stack, StackProps } from '@mui/material';
 import React from 'react';
 
-export type FlexItemProps<C extends React.ElementType> = Partial<{
-  crossAxisAlignment: string;
-  mainAxisAlignment: string;
-}> &
-  Omit<
-    StackProps<C, { component?: C }>,
-    'display' | 'justifyContent' | 'alignItems'
-  >;
+type OverridenProps = 'display' | 'justifyContent' | 'alignItems';
+
+export type FlexItemProps<C extends React.ElementType = 'div'> = Omit<
+  StackProps<C>,
+  OverridenProps
+> &
+  Partial<{
+    crossAxisAlignment: StackProps['justifyContent'];
+    mainAxisAlignment: StackProps['alignItems'];
+  }>;
 
 function FlexItem<C extends React.ElementType>(
   props: FlexItemProps<C>,
-  ref: React.Ref<unknown>
+  ref: React.Ref<any>
 ) {
   const { crossAxisAlignment, mainAxisAlignment, ...otherProps } = props;
 

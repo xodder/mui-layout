@@ -1,5 +1,4 @@
 import { Box, BoxProps } from '@mui/material';
-import React from 'react';
 
 type Responsive<T> = Partial<{
   xs: T;
@@ -15,7 +14,9 @@ type OverridenProps =
   | 'gap'
   | 'rowGap'
   | 'columnGap'
-  | 'display';
+  | 'display'
+  | 'justifyContent'
+  | 'alignItems';
 
 export type GridProps = Omit<BoxProps, OverridenProps> &
   Partial<{
@@ -25,6 +26,8 @@ export type GridProps = Omit<BoxProps, OverridenProps> &
     spacing: Value | Responsive<Value>;
     rowSpacing: Value | Responsive<Value>;
     columnSpacing: Value | Responsive<Value>;
+    mainAxisAlignment: BoxProps['justifyContent'];
+    crossAxisAlignment: BoxProps['alignItems'];
   }>;
 
 function Grid({
@@ -34,6 +37,8 @@ function Grid({
   columnSpacing,
   rowSpacing,
   spacing,
+  mainAxisAlignment,
+  crossAxisAlignment,
   ...props
 }: GridProps) {
   const cols = !isEmpty(columns)
@@ -50,6 +55,8 @@ function Grid({
       gap={resolveResponsiveValue(spacing, '{}')}
       rowGap={resolveResponsiveValue(columnSpacing, '{}')}
       columnGap={resolveResponsiveValue(rowSpacing, '{}')}
+      justifyContent={mainAxisAlignment}
+      alignItems={crossAxisAlignment}
     />
   );
 }
