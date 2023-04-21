@@ -35,6 +35,7 @@ The following components are exposed by the library and each does just what it's
 - Column
 - Row
 - FlexItem
+- Grid
 - Center
 - Spacer
 - Flexible
